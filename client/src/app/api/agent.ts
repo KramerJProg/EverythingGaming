@@ -1,9 +1,17 @@
-import axios, { AxiosResponse } from "axios";
+import axios, { AxiosError, AxiosResponse } from "axios";
 
 axios.defaults.baseURL = "http://localhost:5000/api/";
 
 // Helper function for Axios. Getting response.data and storing it in responseBody.
 const responseBody = (response: AxiosResponse) => response.data;
+
+// Axios Interceptor to prevent Uncaught exceptions.
+axios.interceptors.response.use(response => {
+    return response
+}, (error: AxiosError) => {
+    console.log("caught by interceptor!");
+    return Promise.reject(error.response);
+})
 
 // Add an object for different types of requests.
 const requests = {
