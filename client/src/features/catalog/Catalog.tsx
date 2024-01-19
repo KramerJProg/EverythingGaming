@@ -9,6 +9,7 @@ export default function Catalog() {
 
     const [products, setProducts] = useState<Product[]>( [] );
 
+    // using Axios from agent.
     useEffect(() => {
       agent.Catalog.list().then(products => setProducts(products))
     }, [])
