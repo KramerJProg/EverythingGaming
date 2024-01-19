@@ -1,4 +1,36 @@
-import { AppBar, Switch, Toolbar, Typography } from "@mui/material";
+import { ShoppingCart } from "@mui/icons-material";
+import { AppBar, Badge, Box, IconButton, List, ListItem, Switch, Toolbar, Typography } from "@mui/material";
+import { NavLink } from "react-router-dom";
+
+// Routes for other page components.
+const pageLinks = [
+    {title: 'catalog', path: '/catalog'},
+    {title: 'about', path: '/about'},
+    {title: 'contact', path: '/contact'}
+]
+
+// Routes for Login and Registration.
+const loginLinks = [
+    {title: 'login', path: '/login'},
+    {title: 'register', path: '/register'}
+]
+
+// Applies to all styling in the Nav Bar.
+const navStyles = {
+    color: 'inherit', 
+    textDecoration: 'none',
+    '&:hover': {
+        color: 'grey.500'
+    },
+    '&.active': {
+        color: 'text.secondary'
+    }
+}
+
+// For the font size of the nav items.
+const navStyleFontSizeNavItems = {
+    typography: 'body2',
+}
 
 interface Props {
     darkMode: boolean;
@@ -8,11 +40,54 @@ interface Props {
 export default function Header({darkMode, handleThemeChange}: Props) {
     return (
         <AppBar position="sticky" sx={{mb: 4}}>
-            <Toolbar>
-                <Typography variant="h6">
-                    Everything Gaming
-                </Typography>
-                <Switch checked={darkMode} onChange={handleThemeChange} />
+            <Toolbar sx={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+
+                <Box display='flex' alignItems='center'>
+
+                    {/* Title of Application link which navs to Home Page. */}
+                    <Typography variant="h6" component={NavLink} to='/' sx={navStyles}>
+                        Everything Gaming
+                    </Typography>
+                    <Switch checked={darkMode} onChange={handleThemeChange} />
+                </Box>
+
+                <Box display='flex' alignItems='center' sx={navStyleFontSizeNavItems}>
+
+                    {/* Catalog, About, and Contact Pages. */}
+                    <List sx={{display: 'flex'}}>
+                        {pageLinks.map(({title, path}) => (
+                            <ListItem
+                                component={NavLink}
+                                to={path}
+                                key={path}
+                                sx={navStyles}
+                            >
+                                {title.toUpperCase()}
+                            </ListItem>
+                        ))}
+                    </List>
+
+                    {/* Shopping Cart Icon. */}
+                    <IconButton size="large" edge='start' color='inherit' sx={{mr: 2, ml: 2}}>
+                        <Badge badgeContent='4' color="secondary">
+                            <ShoppingCart />
+                        </Badge>
+                    </IconButton>
+                    
+                    {/* Login and Registration Links. */}
+                    <List sx={{display: 'flex'}}>
+                        {loginLinks.map(({title, path}) => (
+                            <ListItem
+                                component={NavLink}
+                                to={path}
+                                key={path}
+                                sx={navStyles}
+                            >
+                                {title.toUpperCase()}
+                            </ListItem>
+                        ))}
+                    </List>
+                </Box>
             </Toolbar>
         </AppBar>
     )
