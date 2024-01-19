@@ -1,4 +1,5 @@
 import axios, { AxiosError, AxiosResponse } from "axios";
+import { toast } from "react-toastify";
 
 axios.defaults.baseURL = "http://localhost:5000/api/";
 
@@ -9,7 +10,30 @@ const responseBody = (response: AxiosResponse) => response.data;
 axios.interceptors.response.use(response => {
     return response
 }, (error: AxiosError) => {
-    console.log("caught by interceptor!");
+    const {data, status} = error.response as AxiosResponse;
+    switch (status) {
+        case 400:
+            if (data.errors) {
+                const modelStateErrors: string[] = [];
+                for (const key in data.errors) {
+                    if (data.errors[key]) {
+                        modelStateErrors.push(data.errors[key])
+                    }
+                }
+                throw modelStateErrors.flat();
+            }
+            toast.error(data.title);
+            break;
+        case 401:
+            toast.error(data.title);
+            break;
+        case 500:
+            toast.error(data.title);
+            break;
+        default:
+            break;
+    }
+
     return Promise.reject(error.response);
 })
 
@@ -27,7 +51,7 @@ const Catalog = {
     details: (id: number) => requests.get(`products/${id}`)
 }
 
-
+// Error Routes
 const TestErrors = {
     get400Error: () => requests.get("buggy/bad-request"),
     get401Error: () => requests.get("buggy/unauthorized"),
