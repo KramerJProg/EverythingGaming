@@ -1,6 +1,6 @@
 import { ShoppingCart } from "@mui/icons-material";
 import { AppBar, Badge, Box, IconButton, List, ListItem, Switch, Toolbar, Typography } from "@mui/material";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 // Routes for other page components.
 const pageLinks = [
@@ -68,7 +68,7 @@ export default function Header({darkMode, handleThemeChange}: Props) {
                     </List>
 
                     {/* Shopping Cart Icon. */}
-                    <IconButton size="large" edge='start' color='inherit' sx={{mr: 2, ml: 2}}>
+                    <IconButton component={Link} to="/cart" size="large" edge='start' color='inherit' sx={{mr: 2, ml: 2}}>
                         <Badge badgeContent='4' color="secondary">
                             <ShoppingCart />
                         </Badge>
