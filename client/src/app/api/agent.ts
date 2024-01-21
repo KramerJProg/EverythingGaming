@@ -2,10 +2,11 @@ import axios, { AxiosError, AxiosResponse } from "axios";
 import { toast } from "react-toastify";
 import { router } from "../router/Routes";
 
-
+// FOR TESTING PURPOSES FOR LOADER, REMOVE BEFORE PRODUCTION.
 const sleep = () => new Promise(resolve => setTimeout(resolve, 500));
 
 axios.defaults.baseURL = "http://localhost:5000/api/";
+axios.defaults.withCredentials = true;
 
 // Helper function for Axios. Getting response.data and storing it in responseBody.
 const responseBody = (response: AxiosResponse) => response.data;
@@ -67,10 +68,18 @@ const TestErrors = {
     getValidationError: () => requests.get("buggy/validation-error")
 }
 
-// Another object that exports Catalog.
+// Allows for items to be added or removed in storage in regards to cart ID.
+const Cart = {
+    get: () => requests.get("cart"),
+    addItem: (productId: number, quantity = 1) => requests.post(`cart?productId=${productId}&quantity=${quantity}`, {}),
+    removeItem: (productId: number, quantity = 1) => requests.delete(`cart?productId=${productId}&quantity=${quantity}`)
+}
+
+// Another object that exports objects from agent.tsx.
 const agent = {
     Catalog,
-    TestErrors
+    TestErrors,
+    Cart
 }
 
 export default agent;

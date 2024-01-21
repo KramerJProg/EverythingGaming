@@ -21,6 +21,9 @@ export const router = createBrowserRouter([
             {path: 'contact', element: <ContactPage />},
             {path: 'server-error', element: <ServerError />},
             {path: 'not-found', element: <NotFound />},
+            // If the user finds themselves in any place other than the
+            // routes listed above, the * path will automatically redirect
+            // them to the '/not-found' end point.
             {path: '*', element: <Navigate replace to={'/not-found'} />}
         ]
     }

@@ -23,6 +23,7 @@ export default function ProductDetails() {
 
     if (!product) return <NotFound />
 
+    // Renders the product and all of its information when retrieved by ID.
     return (
         <Grid container spacing={6}>
             <Grid item xs={6}>
