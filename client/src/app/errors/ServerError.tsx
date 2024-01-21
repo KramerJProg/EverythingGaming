@@ -6,6 +6,7 @@ export default function ServerError() {
     const {state} = useLocation();
 
     return (
+        // in case of server error.
         <Container component={Paper}>
             {state?.error ? (
                 <>

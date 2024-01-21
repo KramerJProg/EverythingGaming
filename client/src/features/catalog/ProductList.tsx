@@ -7,6 +7,7 @@ interface Props {
 }
 
 export default function ProductList({products}: Props) {
+    // Renders the List of games on the Catalog page using map.
     return (
         <Grid container spacing={4}>
             {products.map(product => (

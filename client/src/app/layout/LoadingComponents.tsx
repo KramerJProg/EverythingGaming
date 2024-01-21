@@ -6,6 +6,9 @@ interface Props {
 }
 
 export default function LoadingComponent({message = "Loading..."}: Props) {
+    // Implemented Loading component in case of a slow connection
+    // to let the user know something is happening instead of a
+    // blank screen.
     return (
         <Backdrop open={true} invisible={true}>
             <Box display="flex" justifyContent="center" alignItems="center" height="100vh">
