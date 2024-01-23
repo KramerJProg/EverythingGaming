@@ -1,23 +1,9 @@
-import { useEffect, useState } from "react"
-import { Cart } from "../../app/models/cart";
-import agent from "../../app/api/agent";
-import LoadingComponent from "../../app/layout/LoadingComponents";
 import { IconButton, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material";
 import { Delete } from "@mui/icons-material";
+import { useStoreContext } from "../../app/context/StoreContext";
 
 export default function CartPage() {
-    const [loading, setLoading] = useState(true);
-    const [cart, setCart] = useState<Cart | null>(null);
-
-    // To go retrieve the cart.
-    useEffect(() => {
-        agent.Cart.get()
-        .then(cart => setCart(cart))
-        .catch(error => console.log(error))
-        .finally(() => setLoading(false))
-    }, [])
-
-    if (loading) return <LoadingComponent message="Loading Your Cart..."/>
+    const {cart} = useStoreContext();
 
     if (!cart) return <Typography variant="h3">Your Cart Is Empty!</Typography>
 

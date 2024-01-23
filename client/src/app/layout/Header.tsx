@@ -1,6 +1,7 @@
 import { ShoppingCart } from "@mui/icons-material";
 import { AppBar, Badge, Box, IconButton, List, ListItem, Switch, Toolbar, Typography } from "@mui/material";
 import { Link, NavLink } from "react-router-dom";
+import { useStoreContext } from "../context/StoreContext";
 
 // Routes for other page components.
 const pageLinks = [
@@ -38,6 +39,9 @@ interface Props {
 }
 
 export default function Header({darkMode, handleThemeChange}: Props) {
+    const {cart} = useStoreContext();
+    const itemCount = cart?.items.reduce((sum, item) => sum + item.quantity, 0)
+
     return (
         <AppBar position="sticky" sx={{mb: 4}}>
             <Toolbar sx={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
@@ -69,7 +73,7 @@ export default function Header({darkMode, handleThemeChange}: Props) {
 
                     {/* Shopping Cart Icon. */}
                     <IconButton component={Link} to="/cart" size="large" edge='start' color='inherit' sx={{mr: 2, ml: 2}}>
-                        <Badge badgeContent='4' color="secondary">
+                        <Badge badgeContent={itemCount} color="secondary">
                             <ShoppingCart />
                         </Badge>
                     </IconButton>
