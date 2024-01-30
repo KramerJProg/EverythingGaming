@@ -1,10 +1,11 @@
-import { Box, Grid, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material";
+import { Box, Button, Grid, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material";
 import { Add, Delete, Remove } from "@mui/icons-material";
 import { useStoreContext } from "../../app/context/StoreContext";
 import { useState } from "react";
 import agent from "../../app/api/agent";
 import { LoadingButton } from "@mui/lab";
-import BasketSummary from "./CartSummary";
+import CartSummary from "./CartSummary";
+import { Link } from "react-router-dom";
 
 export default function CartPage() {
     const {cart, setCart, removeItem} = useStoreContext();
@@ -70,7 +71,7 @@ export default function CartPage() {
                                     </TableCell>
                                     <TableCell align="right">${((item.price / 100) * item.quantity).toFixed(2)}</TableCell>
                                     <TableCell align="right">
-                                        <LoadingButton loading={status.loading && status.name === "del" + item.productId} onClick={() => handleRemoveItem(item.productId, 1, "del" + item.productId)} color="error">
+                                        <LoadingButton loading={status.loading && status.name === "del" + item.productId} onClick={() => handleRemoveItem(item.productId, item.quantity, "del" + item.productId)} color="error">
                                             <Delete />
                                         </LoadingButton>
                                     </TableCell>
@@ -83,7 +84,10 @@ export default function CartPage() {
             <Grid container>
             <Grid item xs={6} />
                 <Grid item xs={6}>
-                    <BasketSummary />
+                    <CartSummary />
+                    <Button component={Link} to="/checkout" variant="contained" size="large" fullWidth>
+                        Checkout
+                    </Button>
                 </Grid>
             </Grid>
         </>

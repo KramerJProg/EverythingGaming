@@ -9,6 +9,7 @@ import ContactPage from "../../features/contact/ContactPage";
 import ServerError from "../errors/ServerError";
 import NotFound from "../errors/NotFound";
 import CartPage from "../../features/cart/CartPage";
+import CheckoutPage from "../../features/checkout/CheckoutPage";
 
 export const router = createBrowserRouter([
     {
@@ -23,6 +24,7 @@ export const router = createBrowserRouter([
             {path: 'server-error', element: <ServerError />},
             {path: 'not-found', element: <NotFound />},
             {path: 'cart', element: <CartPage />},
+            {path: 'checkout', element: <CheckoutPage />},
             // If the user finds themselves in any place other than the
             // routes listed above, the * path will automatically redirect
             // them to the '/not-found' end point.
