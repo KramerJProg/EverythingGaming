@@ -27,12 +27,15 @@ export default function ProductDetails() {
             .finally(() => setLoading(false));
     }, [id, item])
 
+    // Making sure the user can't go below 0 quantities.
     function handleInputChange(event: ChangeEvent<HTMLInputElement>) {
         if (parseInt(event.currentTarget.value) >= 0) {
             setQuantity(parseInt(event.currentTarget.value));
         }
     }
 
+    // Checks to see if the item exists, if not, it returns, but if the item does exist,
+    // then allows for the item to be saved at the amount desired by the user.
     function handleUpdateCart() {
         if (!product) return;
         setSubmitting(true);
@@ -94,11 +97,20 @@ export default function ProductDetails() {
                 <Grid container spacing={2} sx={{mt: .5}}>
                     <Grid item xs={2}>
                         <TextField 
-                            onChange={handleInputChange} variant="outlined" type="number" label="Quantity in Cart" fullWidth value={quantity} 
+                            onChange={handleInputChange} 
+                            variant="outlined" 
+                            type="number" 
+                            label="Quantity in Cart" 
+                            fullWidth value={quantity} 
                         />
                     </Grid>
                     <Grid item xs={6}>
                         <LoadingButton
+                            // The disabled checks if the quantity is the same quantity as
+                            // when it was initially set, if so, then it will disable the
+                            // button so the user can't save what is already saved. Otherwise,
+                            // the user can add or remove as long as it is not the same prior
+                            // to the save state.
                             disabled={item?.quantity === quantity || !item && quantity === 0}
                             loading={submitting} 
                             onClick={handleUpdateCart} 
