@@ -4,8 +4,9 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import agent from "../../app/api/agent";
 import { LoadingButton } from "@mui/lab";
-import { useStoreContext } from "../../app/context/StoreContext";
 import { currencyFormat } from "../../app/util/util";
+import { useAppDispatch } from "../../app/store/configureStore";
+import { setCart } from "../cart/cartSlice";
 
 interface Props {
     product: Product;
@@ -13,12 +14,16 @@ interface Props {
 
 export default function ProductCard({product}: Props) {
     const [loading, setLoading] = useState(false);
-    const {setCart} = useStoreContext();
+    // Using React Context
+    // const {setCart} = useStoreContext();
+
+    // Redux
+    const dispatch = useAppDispatch();
 
     function handleAddItem(productId: number) {
         setLoading(true);
         agent.Cart.addItem(productId)
-            .then(cart => setCart(cart))
+            .then(cart => dispatch(setCart(cart)))
             .catch(error => console.log(error))
             .finally(() => setLoading(false));
     }
