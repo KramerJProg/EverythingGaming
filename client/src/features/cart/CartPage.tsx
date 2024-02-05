@@ -1,38 +1,19 @@
 import { Box, Button, Grid, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material";
 import { Add, Delete, Remove } from "@mui/icons-material";
-import { useState } from "react";
-import agent from "../../app/api/agent";
 import { LoadingButton } from "@mui/lab";
 import CartSummary from "./CartSummary";
 import { Link } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../app/store/configureStore";
-import { removeItem, setCart } from "./cartSlice";
+import { addCartItemAsync, removeCartItemAsync } from "./cartSlice";
 
 export default function CartPage() {
     // Using StoreContext (React Context)
     // const {cart, setCart, removeItem} = useStoreContext();
-    const {cart} = useAppSelector(state => state.cart);
+
+    //Using Redux
+    const {cart, status} = useAppSelector(state => state.cart);
     const dispatch = useAppDispatch();
-    const [status, setStatus] = useState({
-        loading: false,
-        name: ""
-    });
 
-    function handleAddItem(productId: number, name: string) {
-        setStatus({loading: true, name});
-        agent.Cart.addItem(productId)
-            .then(cart => dispatch(setCart(cart)))
-            .catch(error => console.log(error))
-            .finally(() => setStatus({loading: false, name: ""}))
-    }
-
-    function handleRemoveItem(productId: number, quantity = 1, name: string) {
-        setStatus({loading: true, name});
-        agent.Cart.removeItem(productId, quantity)
-            .then(() => dispatch(removeItem({productId, quantity})))
-            .catch(error => console.log(error))
-            .finally(() => setStatus({loading: false, name: ""}))
-    }
 
     if (!cart) return <Typography variant="h3">Your Cart Is Empty!</Typography>
 
@@ -65,17 +46,29 @@ export default function CartPage() {
                                     </TableCell>
                                     <TableCell align="right">${(item.price / 100).toFixed(2)}</TableCell>
                                     <TableCell align="center">
-                                        <LoadingButton loading={status.loading && status.name === "rem" + item.productId} onClick={() => handleRemoveItem(item.productId, 1, "rem" + item.productId)} color="error">
+                                        <LoadingButton loading={status === "pendingRemoveItem" + item.productId + "rem"} 
+                                                       onClick={() => dispatch(removeCartItemAsync({productId: item.productId, 
+                                                                                                    quantity: 1,
+                                                                                                    name: "rem"
+                                                        }))} 
+                                                       color="error">
                                             <Remove />
                                         </LoadingButton>
                                         {item.quantity}
-                                        <LoadingButton loading={status.loading && status.name === "add" + item.productId} onClick={() => handleAddItem(item.productId, "add" + item.productId)} color="secondary">
+                                        <LoadingButton loading={status === "pendingAddItem" + item.productId} 
+                                                       onClick={() => dispatch(addCartItemAsync({productId: item.productId}))} 
+                                                       color="secondary">
                                             <Add />
                                         </LoadingButton>
                                     </TableCell>
                                     <TableCell align="right">${((item.price / 100) * item.quantity).toFixed(2)}</TableCell>
                                     <TableCell align="right">
-                                        <LoadingButton loading={status.loading && status.name === "del" + item.productId} onClick={() => handleRemoveItem(item.productId, item.quantity, "del" + item.productId)} color="error">
+                                        <LoadingButton loading={status === "pendingRemoveItem" + item.productId + "del"} 
+                                                       onClick={() => dispatch(removeCartItemAsync({productId: item.productId, 
+                                                                                                    quantity: item.quantity,
+                                                                                                    name: "del"
+                                                        }))} 
+                                                       color="error">
                                             <Delete />
                                         </LoadingButton>
                                     </TableCell>

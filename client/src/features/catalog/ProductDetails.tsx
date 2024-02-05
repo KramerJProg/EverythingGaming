@@ -7,21 +7,21 @@ import NotFound from "../../app/errors/NotFound";
 import LoadingComponent from "../../app/layout/LoadingComponents";
 import { LoadingButton } from "@mui/lab";
 import { useAppDispatch, useAppSelector } from "../../app/store/configureStore";
-import { removeItem, setCart } from "../cart/cartSlice";
+import { addCartItemAsync, removeCartItemAsync } from "../cart/cartSlice";
 
 export default function ProductDetails() {
+
     // React Context
     // const {cart, setCart, removeItem} = useStoreContext();
 
-
-    const {cart} = useAppSelector(state => state.cart);
+    // Redux
+    const {cart, status} = useAppSelector(state => state.cart);
     const dispatch = useAppDispatch();
 
     const {id} = useParams<{id: string}>();
     const [product, setProduct] = useState<Product | null>(null);
     const [loading, setLoading] = useState(true);
     const [quantity, setQuantity] = useState(0);
-    const [submitting, setSubmitting] = useState(false);
     const item = cart?.items.find(i => i.productId === product?.id);
 
     // Axios is used from agent.
@@ -45,19 +45,12 @@ export default function ProductDetails() {
     // then allows for the item to be saved at the amount desired by the user.
     function handleUpdateCart() {
         if (!product) return;
-        setSubmitting(true);
         if (!item || quantity > item.quantity) {
             const updatedQuantity = item ? quantity - item.quantity : quantity;
-            agent.Cart.addItem(product.id, updatedQuantity)
-                .then(cart => dispatch(setCart(cart)))
-                .catch(error => console.log(error))
-                .finally(() => setSubmitting(false))
+            dispatch(addCartItemAsync({productId: product?.id, quantity: updatedQuantity}))
         } else {
             const updatedQuantity = item.quantity - quantity;
-            agent.Cart.removeItem(product.id, updatedQuantity)
-                .then(() => dispatch(removeItem({productId: product.id, quantity: updatedQuantity})))
-                .catch(error => console.log(error))
-                .finally(() => setSubmitting(false));
+            dispatch(removeCartItemAsync({productId: product?.id, quantity: updatedQuantity}))
         }
     }
 
@@ -119,7 +112,7 @@ export default function ProductDetails() {
                             // the user can add or remove as long as it is not the same prior
                             // to the save state.
                             disabled={item?.quantity === quantity || !item && quantity === 0}
-                            loading={submitting} 
+                            loading={status.includes("pendingRemoveItem" + item?.productId)} 
                             onClick={handleUpdateCart} 
                             sx={{height: "55px"}} 
                             color="primary" 
