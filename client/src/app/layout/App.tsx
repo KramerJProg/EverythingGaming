@@ -30,14 +30,14 @@ function App() {
   }, [dispatch])
 
   const [darkMode, setDarkMode] = useState(true);
-  const paletteType = darkMode ? 'dark' : 'light';
+  const paletteType = darkMode ? "dark" : "light";
 
   // Implemented Dark Mode using Material-UI.
   const theme = createTheme({
     palette: {
       mode: paletteType,
       background: {
-        default: paletteType === 'light' ? '#eaeaea' : '#121212'
+        default: paletteType === "light" ? "#eaeaea" : "#121212"
       }
     }
   })

@@ -9,7 +9,7 @@ export default function CartSummary() {
 
     return (
         <>
-            <TableContainer component={Paper} variant={'outlined'}>
+            <TableContainer component={Paper} variant={"outlined"}>
                 <Table>
                     <TableBody>
                         <TableRow>
@@ -26,7 +26,7 @@ export default function CartSummary() {
                         </TableRow>
                         <TableRow>
                             <TableCell>
-                                <span style={{fontStyle: 'italic'}}>*Orders over $100 qualify for free delivery</span>
+                                <span style={{fontStyle: "italic"}}>*Orders over $100 qualify for free delivery</span>
                             </TableCell>
                         </TableRow>
                     </TableBody>
