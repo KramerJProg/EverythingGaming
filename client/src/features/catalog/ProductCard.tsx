@@ -22,7 +22,7 @@ export default function ProductCard({product}: Props) {
     return (
         // Renders the product 'Card'. These will render the image and price of the product.
         <Card>
-            <CardHeader 
+            <CardHeader
                 avatar={
                     <Avatar sx={{bgcolor: "secondary.main"}}>
                         {product.name.charAt(0).toUpperCase()}
@@ -34,9 +34,10 @@ export default function ProductCard({product}: Props) {
                 }}
             />
             <CardMedia
-                sx={{ height: 140, backgroundSize: "contain", bgcolor: "primary.light" }}
+                sx={{ height: 200, backgroundSize: "contain"}}
                 image={product.pictureUrl}
                 title={product.name}
+                component={Link} to={`/catalog/${product.id}`}
             />
             <CardContent>
                 <Typography gutterBottom color="secondary" variant="h5">
