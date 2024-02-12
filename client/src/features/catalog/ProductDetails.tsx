@@ -106,7 +106,7 @@ export default function ProductDetails() {
                             // the user can add or remove as long as it is not the same prior
                             // to the save state.
                             disabled={item?.quantity === quantity || !item && quantity === 0}
-                            loading={status.includes("pendingRemoveItem" + item?.productId)} 
+                            loading={status.includes("pending")} 
                             onClick={handleUpdateCart} 
                             sx={{height: "55px"}} 
                             color="primary" 

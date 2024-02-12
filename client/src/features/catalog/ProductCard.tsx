@@ -30,7 +30,7 @@ export default function ProductCard({product}: Props) {
                 }
                 title={product.name}
                 titleTypographyProps={{
-                    sx: {fontWeight: "bold", color: "primary.main"}
+                    sx: {fontWeight: "bold"}
                 }}
             />
             <CardMedia
@@ -40,7 +40,7 @@ export default function ProductCard({product}: Props) {
                 component={Link} to={`/catalog/${product.id}`}
             />
             <CardContent>
-                <Typography gutterBottom color="secondary" variant="h5">
+                <Typography gutterBottom variant="h5">
                     {currencyFormat(product.price)}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
