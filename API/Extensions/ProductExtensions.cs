@@ -6,9 +6,10 @@ using API.Entities;
 
 namespace API.Extensions
 {
-    // Purpose of this extension class is to add a new method to the IQueryable class (Sort and so on...)
+    // Purpose of this extension class is to add a new method to the IQueryable class (Sort, Search, Filter, and so on...)
     public static class ProductExtensions
     {
+        // Sorts the product in ASC order by name by default.
         public static IQueryable<Product> Sort(this IQueryable<Product> query, string orderBy)
         {
             if (string.IsNullOrWhiteSpace(orderBy)) return query.OrderBy(p => p.Name);
@@ -23,6 +24,7 @@ namespace API.Extensions
             return query;
         }
 
+        // Searches a product by name using Contains().
         public static IQueryable<Product> Search(this IQueryable<Product> query, string searchTerm)
         {
             if (string.IsNullOrEmpty(searchTerm)) return query;
@@ -32,6 +34,7 @@ namespace API.Extensions
             return query.Where(p => p.Name.ToLower().Contains(lowerCaseSearchTerm));
         }
 
+        // Filters out the list of products by brand and type of products.
         public static IQueryable<Product> Filter(this IQueryable<Product> query, string brands, string types)
         {
             var brandList = new List<string>();
