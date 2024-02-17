@@ -56,7 +56,8 @@ const requests = {
 // Another object that is going to store requests for the catalog.
 const Catalog = {
     list: () => requests.get("products"),
-    details: (id: number) => requests.get(`products/${id}`)
+    details: (id: number) => requests.get(`products/${id}`),
+    fetchFilters: () => requests.get("products/filters")
 }
 
 // Error Routes
