@@ -16,8 +16,8 @@ export interface ProductParams {
     orderBy: string;
     // following 3 are optional because the filters don't need to be sent up
     searchTerm?: string;
-    types?: string[];
-    brands?: string[];
+    types: string[];
+    brands: string[];
     pageNumber: number;
     pageSize: number;
 }
