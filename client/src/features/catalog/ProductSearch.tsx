@@ -11,7 +11,7 @@ export default function ProductSearch() {
 
     const debouncedSearch = debounce((event: any) => {
         dispatch(setProductParams({searchTerm: event.target.value}))
-    }, 2000)
+    })
 
     return (
         <TextField 

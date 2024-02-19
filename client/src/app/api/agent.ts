@@ -4,7 +4,7 @@ import { router } from "../router/Routes";
 import { PaginatedResponse } from "../models/pagination";
 
 // FOR TESTING PURPOSES FOR LOADER, REMOVE BEFORE PRODUCTION.
-const sleep = () => new Promise(resolve => setTimeout(resolve, 500));
+const sleep = () => new Promise(resolve => setTimeout(resolve, 100));
 
 axios.defaults.baseURL = "http://localhost:5000/api/";
 axios.defaults.withCredentials = true;
