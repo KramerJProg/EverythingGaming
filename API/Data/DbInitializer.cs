@@ -17,6 +17,8 @@ namespace API.Data
                     Email = "Kramer@gmail.com"
                 };
 
+                // When a user is created, the SaveChangesAsync method is not
+                // needed here because the CreateAsync method takes of it.
                 await userManager.CreateAsync(user, "Pa$$w0rd");
                 await userManager.AddToRoleAsync(user, "Member");
 
