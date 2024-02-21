@@ -10,6 +10,8 @@ import ServerError from "../errors/ServerError";
 import NotFound from "../errors/NotFound";
 import CartPage from "../../features/cart/CartPage";
 import CheckoutPage from "../../features/checkout/CheckoutPage";
+import Login from "../../features/account/Login";
+import Register from "../../features/account/Register";
 
 export const router = createBrowserRouter([
     {
@@ -25,6 +27,8 @@ export const router = createBrowserRouter([
             {path: 'not-found', element: <NotFound />},
             {path: 'cart', element: <CartPage />},
             {path: 'checkout', element: <CheckoutPage />},
+            {path: 'login', element: <Login />},
+            {path: 'register', element: <Register />},
             // If the user finds themselves in any place other than the
             // routes listed above, the * path will automatically redirect
             // them to the '/not-found' end point.
