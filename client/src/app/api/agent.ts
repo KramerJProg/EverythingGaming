@@ -84,11 +84,20 @@ const Cart = {
     removeItem: (productId: number, quantity = 1) => requests.delete(`cart?productId=${productId}&quantity=${quantity}`)
 }
 
+// Create new object to store our requests to go up to the AccountController.
+// get request for the current user since using the JWT.
+const Account = {
+    login: (values: any) => requests.post("account/login", values),
+    register: (values: any) => requests.post("account/register", values),
+    currentUser: () => requests.get("account/currentUser")
+}
+
 // Another object that exports objects from agent.tsx.
 const agent = {
     Catalog,
     TestErrors,
-    Cart
+    Cart,
+    Account
 }
 
 export default agent;
