@@ -2,6 +2,7 @@ import axios, { AxiosError, AxiosResponse } from "axios";
 import { toast } from "react-toastify";
 import { router } from "../router/Routes";
 import { PaginatedResponse } from "../models/pagination";
+import { store } from "../store/configureStore";
 
 // FOR TESTING PURPOSES FOR LOADER, REMOVE BEFORE PRODUCTION.
 const sleep = () => new Promise(resolve => setTimeout(resolve, 100));
@@ -11,6 +12,12 @@ axios.defaults.withCredentials = true;
 
 // Helper function for Axios. Getting response.data and storing it in responseBody.
 const responseBody = (response: AxiosResponse) => response.data;
+
+axios.interceptors.request.use(config => {
+    const token = store.getState().account.user?.token;
+    if (token) config.headers.Authorization = `Bearer ${token}`;
+    return config;
+})
 
 // Axios Interceptor to prevent Uncaught exceptions.
 axios.interceptors.response.use(async response => {
