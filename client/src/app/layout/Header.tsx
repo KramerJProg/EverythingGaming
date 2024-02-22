@@ -2,6 +2,7 @@ import { ShoppingCart } from "@mui/icons-material";
 import { AppBar, Badge, Box, IconButton, List, ListItem, Switch, Toolbar, Typography } from "@mui/material";
 import { Link, NavLink } from "react-router-dom";
 import { useAppSelector } from "../store/configureStore";
+import SignedInMenu from "./SignedInMenu";
 
 // Routes for other page components.
 const pageLinks = [
@@ -40,11 +41,9 @@ interface Props {
 
 export default function Header({darkMode, handleThemeChange}: Props) {
 
-    // React Context
-    // const {cart} = useStoreContext();
-
     // Redux State
     const {cart} = useAppSelector(state => state.cart);
+    const {user} = useAppSelector(state => state.account);
 
     const itemCount = cart?.items.reduce((sum, item) => sum + item.quantity, 0)
 
@@ -84,19 +83,25 @@ export default function Header({darkMode, handleThemeChange}: Props) {
                         </Badge>
                     </IconButton>
                     
-                    {/* Login and Registration Links. */}
-                    <List sx={{display: "flex"}}>
-                        {loginLinks.map(({title, path}) => (
-                            <ListItem
-                                component={NavLink}
-                                to={path}
-                                key={path}
-                                sx={navStyles}
-                            >
-                                {title.toUpperCase()}
-                            </ListItem>
-                        ))}
-                    </List>
+                    {/* If the user is logged in, display greeting user, else display nav list. */}
+                    {user ? (
+                        <Typography>
+                            Hello, <SignedInMenu />!
+                        </Typography>
+                    ) : (
+                        <List sx={{display: "flex"}}>
+                            {loginLinks.map(({title, path}) => (
+                                <ListItem
+                                    component={NavLink}
+                                    to={path}
+                                    key={path}
+                                    sx={navStyles}
+                                >
+                                    {title.toUpperCase()}
+                                </ListItem>
+                            ))}
+                        </List>
+                    )}
                 </Box>
             </Toolbar>
         </AppBar>
