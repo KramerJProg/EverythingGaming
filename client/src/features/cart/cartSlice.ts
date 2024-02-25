@@ -60,6 +60,9 @@ export const cartSlice = createSlice({
     reducers: {
         setCart: (state, action) => {
             state.cart = action.payload
+        },
+        clearCart: (state) => {
+            state.cart = null;
         }
     },
     // Extra reducers is set to respond to action types defined outside of slice or even Redux toolkit.
@@ -95,4 +98,4 @@ export const cartSlice = createSlice({
     })
 })
 
-export const {setCart} = cartSlice.actions;
+export const {setCart, clearCart} = cartSlice.actions;

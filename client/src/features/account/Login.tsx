@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import { Paper } from '@mui/material';
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import { Link as RouterLink, useLocation, useNavigate } from 'react-router-dom';
 import Link from '@mui/material/Link';
 import { FieldValues, useForm } from 'react-hook-form';
 import { LoadingButton } from "@mui/lab";
@@ -16,6 +16,7 @@ import { signInUser } from './accountSlice';
 
 export default function Login() {
     const navigate = useNavigate();
+    const location = useLocation();
     const dispatch = useAppDispatch();
 
     const {register, handleSubmit, formState: {isSubmitting, errors}} = useForm({
@@ -23,8 +24,12 @@ export default function Login() {
     }) 
 
     async function submitForm(data: FieldValues) {
-        await dispatch(signInUser(data));
-        navigate("/catalog");
+        try {
+            await dispatch(signInUser(data));
+            navigate(location.state?.from || "/catalog");
+        } catch (error) {
+            console.log(error);
+        } 
     }
 
     return (
