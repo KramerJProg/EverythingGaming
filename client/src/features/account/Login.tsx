@@ -18,7 +18,7 @@ export default function Login() {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
 
-    const {register, handleSubmit, formState: {isSubmitting, errors, isValid}} = useForm({
+    const {register, handleSubmit, formState: {isSubmitting, errors}} = useForm({
         mode: "onTouched"
     }) 
 
@@ -41,7 +41,6 @@ export default function Login() {
                     fullWidth
                     label="Username"
                     autoComplete="email"
-                    autoFocus
                     {...register("username", {required: "Username is required!"})}
                     error={!!errors.username}
                     helperText={errors?.username?.message as string}
@@ -57,7 +56,6 @@ export default function Login() {
                 />
                 <LoadingButton 
                     loading={isSubmitting}
-                    disabled={!isValid}
                     type="submit"
                     fullWidth
                     variant="contained"
