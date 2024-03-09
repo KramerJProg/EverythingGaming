@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure;
+using Microsoft.EntityFrameworkCore;
 
 namespace API.Entities.OrderAggregate
 {
+    [Owned]
     public class ProductItemOrdered
     {
         public int ProductId { get; set; }
