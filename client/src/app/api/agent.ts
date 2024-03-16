@@ -99,12 +99,19 @@ const Account = {
     currentUser: () => requests.get("account/currentUser")
 }
 
+const Orders = {
+    list: () => requests.get("orders"),
+    fetch: (id: number) => requests.get(`orders/${id}`),
+    create: (values: any) => requests.post("orders", values)
+}
+
 // Another object that exports objects from agent.tsx.
 const agent = {
     Catalog,
     TestErrors,
     Cart,
-    Account
+    Account,
+    Orders
 }
 
 export default agent;
