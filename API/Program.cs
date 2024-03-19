@@ -84,6 +84,8 @@ builder.Services.AddAuthorization();
 // is being processed, once it is finished, the token service will
 // be disposed of.
 builder.Services.AddScoped<TokenService>();
+// Stripe Payment method service.
+builder.Services.AddScoped<PaymentService>();
 
 var app = builder.Build();
 
