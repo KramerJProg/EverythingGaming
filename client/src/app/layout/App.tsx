@@ -1,4 +1,3 @@
-import { Container, CssBaseline, ThemeProvider, createTheme } from "@mui/material";
 import Header from "./Header";
 import { useCallback, useEffect, useState } from "react";
 import { Outlet, useLocation } from "react-router-dom";
@@ -9,6 +8,7 @@ import { useAppDispatch } from "../store/configureStore";
 import { fetchCartAsync } from "../../features/cart/cartSlice";
 import { fetchCurrentUser } from "../../features/account/accountSlice";
 import HomePage from "../../features/home/HomePage";
+import { Container, CssBaseline, ThemeProvider, createTheme } from "@mui/material";
 
 
 function App() {

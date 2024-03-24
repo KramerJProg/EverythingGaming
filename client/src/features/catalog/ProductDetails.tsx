@@ -1,4 +1,4 @@
-import { Divider, Grid, Table, TableBody, TableCell, TableContainer, TableRow, TextField, Typography } from "@mui/material";
+import { Button, Divider, Grid, Table, TableBody, TableCell, TableContainer, TableRow, TextField, Typography } from "@mui/material";
 import { ChangeEvent, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import NotFound from "../../app/errors/NotFound";
@@ -115,6 +115,15 @@ export default function ProductDetails() {
                             fullWidth>
                             {item ? "Update Quantity" : "Add to Cart"}
                         </LoadingButton>
+                    </Grid>
+                    <Grid item xs={2}>
+                        <Button 
+                            variant="contained" 
+                            sx={{height: "55px"}} 
+                            color="primary" 
+                            size="large"
+                            href="/catalog" > Back
+                        </Button>
                     </Grid>
                 </Grid>
             </Grid>
