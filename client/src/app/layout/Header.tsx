@@ -7,7 +7,6 @@ import SignedInMenu from "./SignedInMenu";
 // Routes for other page components.
 const pageLinks = [
     {title: "catalog", path: "/catalog"},
-    {title: "about", path: "/about"},
     {title: "contact", path: "/contact"}
 ]
 
@@ -48,13 +47,25 @@ export default function Header({darkMode, handleThemeChange}: Props) {
     const itemCount = cart?.items.reduce((sum, item) => sum + item.quantity, 0)
 
     return (
-        <AppBar position="sticky" sx={{mb: 4}}>
+        <AppBar position="sticky">
             <Toolbar sx={{display: "flex", justifyContent: "space-between", alignItems: "center"}}>
 
                 <Box display="flex" alignItems="center">
 
                     {/* Title of Application link which navs to Home Page. */}
-                    <Typography variant="h6" component={NavLink} to="/" sx={navStyles}>
+                    <Typography variant="h6"
+                    align="left"
+                    color="grey.700"
+                    sx={{
+                        backgroundcolor: "primary",
+                        backgroundImage: `linear-gradient(45deg, #5514B4, #FF80FF)`,
+                        backgroundSize: "100%",
+                        backgroundRepeat: "repeat",
+                        backgroundClip: "text",
+                        WebkitBackgroundClip: "text",
+                        WebkitTextFillColor: "transparent"
+                    }}
+                    component={NavLink} to="/">
                         Everything Gaming
                     </Typography>
                     <Switch checked={darkMode} onChange={handleThemeChange} />
@@ -86,7 +97,7 @@ export default function Header({darkMode, handleThemeChange}: Props) {
                     {/* If the user is logged in, display greeting user, else display nav list. */}
                     {user ? (
                         <Typography>
-                            Hello, <SignedInMenu />!
+                            Signed in as <SignedInMenu />
                         </Typography>
                     ) : (
                         <List sx={{display: "flex"}}>

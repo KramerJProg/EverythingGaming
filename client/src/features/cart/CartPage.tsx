@@ -12,7 +12,7 @@ export default function CartPage() {
     const {cart} = useAppSelector(state => state.cart);
 
 
-    if (!cart) return <Typography variant="h3">Your Cart Is Empty!</Typography>
+    if (!cart) return <Typography variant="h3" textAlign={"center"}>Your Cart Is Empty!</Typography>
 
     return (
 
