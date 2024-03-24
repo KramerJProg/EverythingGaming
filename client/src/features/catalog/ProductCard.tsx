@@ -1,4 +1,4 @@
-import { Avatar, Button, Card, CardActions, CardContent, CardHeader, CardMedia, Typography } from "@mui/material";
+import { Button, Card, CardActions, CardContent, CardHeader, CardMedia, Typography } from "@mui/material";
 import { Product } from "../../app/models/product";
 import { Link } from "react-router-dom";
 import { LoadingButton } from "@mui/lab";
@@ -23,14 +23,9 @@ export default function ProductCard({product}: Props) {
         // Renders the product 'Card'. These will render the image and price of the product.
         <Card>
             <CardHeader
-                avatar={
-                    <Avatar sx={{bgcolor: "secondary.main"}}>
-                        {product.name.charAt(0).toUpperCase()}
-                    </Avatar>
-                }
                 title={product.name}
                 titleTypographyProps={{
-                    sx: {fontWeight: "bold"}
+                    sx: {fontWeight: "bold", fontSize: "16px"}
                 }}
             />
             <CardMedia
