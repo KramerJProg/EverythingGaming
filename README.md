@@ -8,7 +8,7 @@ I have done the implementation all by myself. Nobody else has contributed to thi
 I have spent countless hours on this project from implementing multiple features to fixing and solving multiple bugs.
 
 <h2>Technologies Used</h2>
-Everything Gaming is a FullStack application that uses the .NET framework (~v.8.0) for server-side and the React framework for the client-side. I have used SQLite for the entirety of the application
+Everything Gaming is a FullStack application that is built on .NET (~v.8.0) for server-side and the React framework for the client-side. I have used SQLite for the entirety of the application
 up until the end where I made the switch to PostgreSQL for more robust persistence. A custom API was built/used for the backend using C# as the programming language. I also used
 ASP.NET Core ~ Identity ~ Entity Framework ~ Ef Migrations ~ Stripe Services ~ JWT...etc. For the frontend, I chose to use TypeScript as the programming language to move with React because
 I prefer strongly typed languages. I also implemented Redux for managing State within React. I took advantage of the Redux Dev Tools which are very useful. There is much more to the applicatoin, but
